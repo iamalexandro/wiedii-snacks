@@ -1,0 +1,21 @@
+Proyecto -> Wiedii Snacks
+
+
+Time
+
+Research 2 days
+Learning 5 days
+Developing 5 days
+Painting 2 days
+Test 1 day
+
+total: 15 days  delivery = Nov 27
+
+
+Avances primera semana
+Definir la arquitectura = MVC 
+Crear mockups = diseño
+Dfinir modulos
+Lecturas acerca de php, y maria db
+Definir version alpha y beta
+creacion parcial de la propuesta
