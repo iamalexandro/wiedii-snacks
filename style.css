@@ -1,15 +1,31 @@
-h1{
-    color:red;
+.titulo{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 35px;
+    color:#65757c;
+    text-align: center;
 }
 
 @media screen and (min-width: 320px){
-    h1{
+    .logo{ /*logo de wiedii*/
+        display: block;
+        margin: auto;
+        padding: 30px;
+        width: 60%;
+        height: 80%;
+    }
+    h1{ /*snacks title*/
         color: black;
+        margin: 15px;
     }
-    .logo{
-        text-align: center;
-        width: 20%;
-        height: 20%;
+    .userimg{/*user img*/
+        display: block;
+        margin: auto;
     }
+    .finger{/*finger img*/
+        display: block;
+        margin: auto;
+        padding: 15px;
+    }
+    
 }
 
