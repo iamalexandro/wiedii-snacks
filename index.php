@@ -8,20 +8,19 @@ $result = $gsent->fetchAll(); //guardo la consulta en un array
 //var_dump($result); //muestro el array
 
 //ADD DATA IN DB
-if ($_POST) {
-    $name = $_POST['name'];
-    $document = $_POST['document'];
-    $email = $_POST['email'];
+    if ($_POST) {
+        $name = $_POST['name'];
+        $document = $_POST['document'];
+        $email = $_POST['email'];
 
-    $sql_add = 'INSERT INTO users (name,document,email) VALUES (?,?,?) ';
-    $sentencia_agregar = $pdo->prepare($sql_add);
-    $sentencia_agregar->execute(array($name, $document, $email));
-    header('location:index.php');
-}
-?> else{
-    
-}
-
+        $sql_add = 'INSERT INTO users (name,document,email) VALUES (?,?,?) ';
+        $sentencia_agregar = $pdo->prepare($sql_add);
+        $sentencia_agregar->execute(array($name, $document, $email));
+        header('location:index.php');
+    }else{
+        
+    }
+?> 
 <!doctype html>
 <html lang="en">
 
@@ -83,7 +82,7 @@ if ($_POST) {
     </div>
 
     <div class="javascript-adds">
-        !-- Optional JavaScript -->
+        <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
