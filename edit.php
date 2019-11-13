@@ -7,10 +7,10 @@ $name = $_GET['name'];
 $document = $_GET['document'];
 $email = $_GET['email'];
 
-// echo '<br>id: ' . $id;
-// echo '<br>name: ' . $name;
-// echo '<br>document: ' . $document;
-// echo '<br>email: ' . $email;
+echo '<br>id: ' . $id;
+echo '<br>name: ' . $name;
+echo '<br>document: ' . $document;
+echo '<br>email: ' . $email;
 
 //conexion
 
@@ -21,4 +21,4 @@ $sql_edit = 'UPDATE users SET name=?, document=?, email=? WHERE id=?';
 $sentence_edit = $pdo->prepare($sql_edit);
 $sentence_edit->execute(array($name,$document,$email,$id));
 
-header('location:index.php');
+header('location:admin.php');
