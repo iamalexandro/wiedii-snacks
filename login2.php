@@ -12,4 +12,5 @@ if (!$result_confirm) {
     echo 'Invalid User';
     die();
 }
-header('location:admin.php');
+
+header('location:adminUsers.php');

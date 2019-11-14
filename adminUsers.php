@@ -17,7 +17,7 @@ if (!empty($_POST['name']) && !empty($_POST['document']) && !empty($_POST['email
     $sentence_add = $pdo->prepare($sql_add);
     $sentence_add->execute(array($name, $document, $email));
 
-    header('location:admin.php');
+    header('location:adminUsers.php');
 } else {
     //modal (no data to regist) JS  (pending) 
 }
@@ -44,36 +44,37 @@ if ($_GET) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-        <!-- navbar bootstrap-->
-        <!-- <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand">
-                <img src="util/mainlogoW.svg" width="50%" height="50%" class="d-inline-block align-top" alt="">
-            </a>
-            <button type="button" class="btn btn-dark">Exit</button>
-        </nav> -->
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand">
                 <img src="util/mainlogoW.svg" width="50%" height="50%" class="d-inline-block align-top" alt="">
             </a>
-            <button type="button" class="btn btn-dark">Exit</button>
+            <a href="login2view.html">
+                <button type="button" class="btn btn-dark">Exit</button>
+            </a>
         </nav>
-        </div>
+    </div>
     </div>
 
-    <title>Wiedii Snacks Admin</title>
+    <title>Wiedii Snacks Users</title>
     <link rel="shortcut icon" type="image/x-icon" href="util/favicon.png">
 
 </head>
 
 <body>
+
+
+
     <div class="container mt-5">
-        <h1>Users Admin</h1>
+        <a href="adminProducts.php">
+            <button type="button" class="btn btn-info mb-4 p-3">GO TO ADMIN PRODUCTS</button>
+        </a>
         <div class="row">
             <div class="col-md-6 mt-5">
                 <!--mostrar los registros de la DB -->
-                <h2>Users</h2>
+                <h2 class = 'mb-3'>Users</h2>
                 <?php foreach ($result as $data) : ?>
                     <div class="alert alert-dark text-uppercase" role="alert">
                         <?php echo $data['id']; ?>
@@ -81,9 +82,14 @@ if ($_GET) {
                         <?php echo $data['name']; ?>
                         -
                         <?php echo $data['document']; ?>
+
                         <!-- edit button -->
-                        <a href="admin.php?id=<?php echo $data['id']; ?>">
-                            <button class="float-right">edit</button>
+                        <a href="adminUsers.php?id=<?php echo $data['id']; ?>">
+                            <button class="btn-info float-right">Edit</button>
+                        </a>
+                        <!-- delete button -->
+                        <a href="deleteUser.php?id=<?php echo $data['id']; ?>">
+                            <button class="btn-danger mr-3 float-right">Delete</button>
                         </a>
                     </div>
                 <?php endforeach ?>
@@ -103,12 +109,16 @@ if ($_GET) {
                 <?php endif ?>
 
                 <?php if ($_GET) : ?>
-                    <form method="GET" action="edit.php">
+                    <form method="GET" action="editUser.php">
                         <h2>Edit User <?php echo $result_unique['id'] ?></h2>
-                        <input type="text" class="form-control mt-3 text-uppercase" name="name" value="<?php echo $result_unique['name'] ?>">
-                        <input type="text" class="form-control mt-3" name="document" value="<?php echo $result_unique['document'] ?>">
-                        <input type="text" class="form-control mt-3" name="email" value="<?php echo $result_unique['email'] ?>">
-                        <input type="hidden" name="id" value="<?php echo $result_unique['id'] ?>">
+                        <input type="text" class="form-control mt-3 text-uppercase" name="name" 
+                        value="<?php echo $result_unique['name'] ?>">
+                        <input type="text" class="form-control mt-3" name="document" 
+                        value="<?php echo $result_unique['document'] ?>">
+                        <input type="text" class="form-control mt-3" name="email" 
+                        value="<?php echo $result_unique['email'] ?>">
+                        <input type="hidden" name="id" 
+                        value="<?php echo $result_unique['id'] ?>">
                         <button class="btn btn-primary mt-4">Edit</button>
                     </form>
                 <?php endif ?>

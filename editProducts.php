@@ -4,21 +4,23 @@
 
 $id = $_GET['id'];
 $name = $_GET['name'];
-$document = $_GET['document'];
-$email = $_GET['email'];
+$price = $_GET['price'];
+$code = $_GET['code'];
 
 echo '<br>id: ' . $id;
 echo '<br>name: ' . $name;
-echo '<br>document: ' . $document;
-echo '<br>email: ' . $email;
+echo '<br>price: ' . $price;
+echo '<br>code: ' . $code;
 
 //conexion
 
 //cargo la conexion
 include_once'conection.php';
 
-$sql_edit = 'UPDATE users SET name=?, document=?, email=? WHERE id=?';
+$sql_edit = 'UPDATE products SET name=?, price=?, code=? WHERE id=?';
 $sentence_edit = $pdo->prepare($sql_edit);
-$sentence_edit->execute(array($name,$document,$email,$id));
+$sentence_edit->execute(array($name,$price,$code,$id));
 
-header('location:admin.php');
+header('location:adminProducts.php');
+
+?>
