@@ -50,7 +50,7 @@ if ($_GET) {
             <a class="navbar-brand">
                 <img src="util/mainlogoW.svg" width="50%" height="50%" class="d-inline-block align-top" alt="">
             </a>
-            <a href="login2view.html">
+            <a href="login2view.php">
                 <button type="button" class="btn btn-dark">Exit</button>
             </a>
         </nav>
@@ -108,9 +108,12 @@ if ($_GET) {
                 <?php if ($_GET) : ?>
                     <form method="GET" action="editProducts.php">
                         <h2>Edit Product <?php echo $result_unique['id'] ?></h2>
-                        <input type="text" class="form-control mt-3 text-uppercase" name="name" value="<?php echo $result_unique['name'] ?>">
-                        <input type="text" class="form-control mt-3" name="price" value="<?php echo $result_unique['price'] ?>">
-                        <input type="text" class="form-control mt-3" name="code" value="<?php echo $result_unique['code'] ?>">
+                        <input type="text" class="form-control mt-3 text-uppercase" name="name" 
+                        value="<?php echo $result_unique['name'] ?>">
+                        <input type="text" class="form-control mt-3" name="price" 
+                        value="<?php echo $result_unique['price'] ?>">
+                        <input type="text" class="form-control mt-3" name="code" 
+                        value="<?php echo $result_unique['code'] ?>">
                         <input type="hidden" name="id" value="<?php echo $result_unique['id'] ?>">
                         <button class="btn btn-primary mt-4">Edit</button>
                     </form>
