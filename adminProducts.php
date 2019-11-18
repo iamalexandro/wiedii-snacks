@@ -67,7 +67,7 @@ if ($_GET) {
 
   <div class="container mt-5">
     <a href="adminUsers.php">
-      <button type="button" class="btn btn-info mb-4 p-3">GO TO ADMIN USERS</button>
+      <button type="button" class="btn btn-primary mb-4 p-3">GO TO ADMIN USERS</button>
     </a>
     <div class="row">
       <div class="col-md-6 mt-5">
@@ -83,7 +83,7 @@ if ($_GET) {
 
             <!-- edit button -->
             <a href="adminProducts.php?id=<?php echo $data['id']; ?>">
-              <button class="btn-info float-right">edit</button>
+              <button class="btn-light float-right">edit</button>
             </a>
             <!-- delete button -->
             <a href="deleteProducts.php?id=<?php echo $data['id']; ?>">
