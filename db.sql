@@ -7,8 +7,10 @@
 -- Server version: 5.7.26
 -- PHP Version: 7.3.8
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET SQL_MODE
+= "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone
+= "+00:00";
 
 --
 -- Database: `wiedii-snacks`
@@ -20,18 +22,26 @@ SET time_zone = "+00:00";
 -- Table structure for table `products`
 --
 
-CREATE TABLE `products` (
-  `id` int(3) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `price` int(5) NOT NULL,
-  `code` varchar(255) NOT NULL
+CREATE TABLE `products`
+(
+  `id` int
+(3) NOT NULL,
+  `name` varchar
+(255) NOT NULL,
+  `price` int
+(5) NOT NULL,
+  `code` varchar
+(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `price`, `code`) VALUES
+INSERT INTO `products` (`
+id`,
+`name
+`, `price`, `code`) VALUES
 (1, 'cocosette', 3, '1'),
 (4, 'gomitas', 200, '2'),
 (7, 'chocolate jet', 600, '3'),
@@ -43,18 +53,26 @@ INSERT INTO `products` (`id`, `name`, `price`, `code`) VALUES
 -- Table structure for table `purchase`
 --
 
-CREATE TABLE `purchase` (
-  `id` int(11) NOT NULL,
-  `id_user` int(3) NOT NULL,
-  `id_product` int(3) NOT NULL,
-  `cost` int(11) NOT NULL
+CREATE TABLE `purchase`
+(
+  `id` int
+(11) NOT NULL,
+  `id_user` int
+(3) NOT NULL,
+  `id_product` int
+(3) NOT NULL,
+  `cost` int
+(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `purchase`
 --
 
-INSERT INTO `purchase` (`id`, `id_user`, `id_product`, `cost`) VALUES
+INSERT INTO `purchase` (`
+id`,
+`id_user
+`, `id_product`, `cost`) VALUES
 (1, 1, 1, 3),
 (2, 1, 1, 3),
 (3, 1, 1, 3),
@@ -77,21 +95,32 @@ INSERT INTO `purchase` (`id`, `id_user`, `id_product`, `cost`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(3) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `document` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `finger` varchar(200) DEFAULT NULL,
-  `password` varchar(25) DEFAULT NULL,
-  `debt` int(6) DEFAULT NULL
+CREATE TABLE `users`
+(
+  `id` int
+(3) NOT NULL,
+  `name` varchar
+(255) NOT NULL,
+  `document` varchar
+(255) NOT NULL,
+  `email` varchar
+(255) NOT NULL,
+  `finger` varchar
+(200) DEFAULT NULL,
+  `password` varchar
+(25) DEFAULT NULL,
+  `debt` int
+(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `document`, `email`, `finger`, `password`, `debt`) VALUES
+INSERT INTO `users` (`
+id`,
+`name
+`, `document`, `email`, `finger`, `password`, `debt`) VALUES
 (1, 'nicola di candia', '123', 'nicola@gmail.com', '', 'admin1', NULL),
 (2, 'Monica Gallo  ', '119812738123', 'monicandreagf@gmail.com', '', NULL, NULL),
 (3, 'Elena Jaimes', '1127659284', 'elenajaimes@gmail.com', '', NULL, NULL),
@@ -109,22 +138,28 @@ INSERT INTO `users` (`id`, `name`, `document`, `email`, `finger`, `password`, `d
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `code` (`code`);
+ADD PRIMARY KEY
+(`id`),
+ADD UNIQUE KEY `code`
+(`code`);
 
 --
 -- Indexes for table `purchase`
 --
 ALTER TABLE `purchase`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_purchase_user` (`id_user`),
-  ADD KEY `fk_purchase_product` (`id_product`);
+ADD PRIMARY KEY
+(`id`),
+ADD KEY `fk_purchase_user`
+(`id_user`),
+ADD KEY `fk_purchase_product`
+(`id_product`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+ADD PRIMARY KEY
+(`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -134,19 +169,22 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int
+(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `purchase`
 --
 ALTER TABLE `purchase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int
+(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int
+(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
@@ -156,5 +194,9 @@ ALTER TABLE `users`
 -- Constraints for table `purchase`
 --
 ALTER TABLE `purchase`
-  ADD CONSTRAINT `fk_purchase_product` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`),
-  ADD CONSTRAINT `fk_purchase_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+ADD CONSTRAINT `fk_purchase_product` FOREIGN KEY
+(`id_product`) REFERENCES `products`
+(`id`),
+ADD CONSTRAINT `fk_purchase_user` FOREIGN KEY
+(`id_user`) REFERENCES `users`
+(`id`);

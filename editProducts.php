@@ -22,5 +22,4 @@ $sentence_edit = $pdo->prepare($sql_edit);
 $sentence_edit->execute(array($name,$price,$code,$id));
 
 header('location:adminProducts.php');
-
 ?>

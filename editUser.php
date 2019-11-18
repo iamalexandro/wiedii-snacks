@@ -22,5 +22,4 @@ $sentence_edit = $pdo->prepare($sql_edit);
 $sentence_edit->execute(array($name,$document,$email,$id));
 
 header('location:adminUsers.php');
-
 ?>

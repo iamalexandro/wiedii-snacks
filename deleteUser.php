@@ -8,5 +8,4 @@ $sentence_delete = $pdo->prepare($sql_delete);
 $sentence_delete->execute(array($id));
 
 header('location:adminUsers.php');
-
 ?>
