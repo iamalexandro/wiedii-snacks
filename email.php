@@ -16,12 +16,19 @@ $sentence_product->execute(array($id_product));
 $result_product = $sentence_product->fetch();
 $product = $result_product['name'];
 $product = strtoupper($product);
-//compras SELECT FROM purchase
 
 $msg = 'Hello, ' . $name .
-       '<br> You just bought: ' . $product .
-       '<br> It cost: ' . $result_product['price'] .
-       '<br><br> Your debt is for: ' . $result_user['debt'] ;
+'<br> You just bought: ' . $product .
+'<br> It cost: ' . $result_product['price'] .
+'<br><br> Your debt is for: ' . $result_user['debt'] ;
+
+//compras SELECT FROM purchase
+// $sql_purchase = 'SELECT * FROM purchase WHERE id_user=?';
+// $sentence_purchase = $pdo->prepare($sql_purchase);
+// $sentence_purchase->execute(array($id_user));
+// $result_purchase = $sentence_purchase->fetchAll();
+
+// echo $result_purchase;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -75,7 +82,7 @@ try {
     </a>
   </nav>
 
-  <title>Hello, world!</title>
+  <title>Email</title>
 </head>
 
 <body>
