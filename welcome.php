@@ -79,5 +79,4 @@ if (!$result_confirm) {
   </div>
 
 </body>
-
 </html>
