@@ -1,11 +1,28 @@
-This is a try of read me
+# Project Title: Wiedii Snacks
 
-# Title: Wiedii Snacks
+## Getting Started 
 
-- Gettin Started 
+This is an web application for the Wiedii's Snacks Store and it compose by 2 modules
+The first one is the shop module (Running on a RaspberryPi screen)
+The Second one is the Admin module (Desktop Web)
 
-You have to install the next instruction on your terminal:
-sudo apt-get install wiedii-snakcs
+### Instructions
 
-* Different Titles 
 
+
+## Built with
+
+- HTML
+- CSS
+- BOOTSTRAP
+- JAVASCRIPT
+- JQUERY
+- PHP
+
+## Author
+
+Nicola Di Candia
+
+## License
+
+This project is licensed under the...
