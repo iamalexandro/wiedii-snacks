@@ -8,7 +8,7 @@ $result = $gsent->fetchAll(); //guardo la consulta en un array
 //var_dump($result); //muestro el array
 
 //ADD DATA IN DB
-if (!empty($_POST['name']) && !empty($_POST['price']) && !empty($_POST['code'])) {
+if ($_POST) {
   $name = $_POST['name'];
   $price = $_POST['price'];
   $code = $_POST['code'];
@@ -18,9 +18,6 @@ if (!empty($_POST['name']) && !empty($_POST['price']) && !empty($_POST['code']))
   $sentence_add->execute(array($name, $price, $code));
 
   header('location:adminProducts.php');
-} else {
-  //Modal
-  echo "<script language='javascript'> alert('Introduce todos los campos'); </script> "; 
 }
 
 //EDIT DATA IN DB
@@ -31,6 +28,10 @@ if ($_GET) {
   $gsent_unique = $pdo->prepare($sql_unique);
   $gsent_unique->execute(array($id));
   $result_unique = $gsent_unique->fetch();
+
+  $nameP = $result_unique['name'];
+  $nameP = strtoupper($nameP);
+  
 }
 
 ?>
@@ -65,16 +66,16 @@ if ($_GET) {
 <body>
 
 
-  <div class="container mt-5">
+  <div class="container mt-4">
     <a href="adminUsers.php">
-      <button type="button" class="btn btn-primary mb-4 p-3">GO TO ADMIN USERS</button>
+      <button type="button" class="btn btn-primary p-3">GO TO ADMIN USERS</button>
     </a>
     <div class="row">
-      <div class="col-md-6 mt-5">
+      <div class="col-md-6 mt-4">
         <!--mostrar los registros de la DB -->
-        <h2 class='mb-3'>Products</h2>
+        <h2>Products</h2>
         <?php foreach ($result as $data) : ?>
-          <div class="alert alert-dark text-uppercase" role="alert">
+          <div class="alert alert-dark text-uppercase mt-3" role="alert">
             <?php echo $data['id']; ?>
             .
             <?php echo $data['name']; ?>
@@ -93,29 +94,32 @@ if ($_GET) {
         <?php endforeach ?>
       </div>
 
-      <div class="col-md-6 mt-5">
+      <div class="col-md-6 mt-4">
 
-        <!--Capturar datos para las insercion en la DB-->
+        <!-- agregar usuarios -->
         <?php if (!$_GET) : ?>
           <form method="POST">
             <h2>Add Products</h2>
-            <input type="text" class="form-control mt-3" name="name" placeholder="Name" requiered>
-            <input type="text" class="form-control mt-3" name="price" placeholder="Price" requiered>
-            <input type="text" class="form-control mt-3" name="code" placeholder="Code" requiered>
+            <input type="text" class="form-control mt-3" name="name" placeholder="Name" required>
+            <input type="text" class="form-control mt-3" name="price" placeholder="Price" required>
+            <input type="text" class="form-control mt-3" name="code" placeholder="Code" required>
             <button class="btn btn-success mt-4">Add</button>
           </form>
         <?php endif ?>
-
+          <!-- editar usuario -->
         <?php if ($_GET) : ?>
           <form method="GET" action="editProducts.php">
-            <h2>Edit Product <?php echo $result_unique['id'] ?></h2>
+            <h2>Edit Product: <?php echo $nameP ?></h2>
             <input type="text" class="form-control mt-3 text-uppercase" name="name" 
-            value="<?php echo $result_unique['name'] ?>">
-            <input type="text" class="form-control mt-3" name="price" value="<?php echo $result_unique['price'] ?>">
-            <input type="text" class="form-control mt-3" name="code" value="<?php echo $result_unique['code'] ?>">
+            value="<?php echo $result_unique['name'] ?>" required>
+            <input type="text" class="form-control mt-3" name="price" value="<?php echo $result_unique['price'] ?>" required>
+            <input type="text" class="form-control mt-3" name="code" value="<?php echo $result_unique['code'] ?>" required>
             <input type="hidden" name="id" value="<?php echo $result_unique['id'] ?>">
-            <button class="btn btn-primary mt-4">Edit</button>
+            <button class="btn btn-success mt-4 float-left">Edit</button>
           </form>
+          <a href="adminProducts.php">
+            <button class="btn btn-danger mt-4 ml-3 float">Cancel</button>
+          </a>
         <?php endif ?>
       </div>
     </div>

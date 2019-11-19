@@ -8,7 +8,7 @@ $result = $gsent->fetchAll(); //guardo la consulta en un array
 //var_dump($result); //muestro el array
 
 //ADD DATA IN DB
-if (!empty($_POST['name']) && !empty($_POST['document']) && !empty($_POST['email'])) {
+if ($_POST) {
   $name = $_POST['name'];
   $document = $_POST['document'];
   $email = $_POST['email'];
@@ -18,10 +18,7 @@ if (!empty($_POST['name']) && !empty($_POST['document']) && !empty($_POST['email
   $sentence_add->execute(array($name, $document, $email));
 
   header('location:adminUsers.php');
-} else {
-  //Modal
-  // echo "<script language='javascript'> alert('Introduce todos los campos'); </script> "; 
-}
+} else 
 
 //EDIT DATA IN DB
 if ($_GET) {
@@ -31,7 +28,9 @@ if ($_GET) {
   $gsent_unique = $pdo->prepare($sql_unique);
   $gsent_unique->execute(array($id));
   $result_unique = $gsent_unique->fetch();
-  //var_dump($result_unique); //muestro el array
+
+  $nameU = $result_unique['name'];
+  $nameU = strtoupper($nameU);
 }
 
 ?>
@@ -65,16 +64,16 @@ if ($_GET) {
 
 <body>
 
-  <div class="container mt-5">
+  <div class="container mt-4">
     <a href="adminProducts.php">
-      <button type="button" class="btn btn-primary mb-4 p-3">GO TO ADMIN PRODUCTS</button>
+      <button type="button" class="btn btn-primary p-3">GO TO ADMIN PRODUCTS</button>
     </a>
     <div class="row">
-      <div class="col-md-6 mt-5">
+      <div class="col-md-6 mt-4">
         <!--mostrar los registros de la DB -->
-        <h2 class='mb-3'>Users</h2>
+        <h2>Users</h2>
         <?php foreach ($result as $data) : ?>
-          <div class="alert alert-dark text-uppercase" role="alert">
+          <div class="alert alert-dark text-uppercase mt-3" role="alert">
             <?php echo $data['id']; ?>
             .
             <?php echo $data['name']; ?>
@@ -93,28 +92,40 @@ if ($_GET) {
         <?php endforeach ?>
       </div>
 
-      <div class="col-md-6 mt-5">
+      <div class="col-md-6 mt-4">
 
-        <!--Capturar datos para las insercion en la DB-->
+          <!-- agregar usuarios -->
         <?php if (!$_GET) : ?>
           <form method="POST">
             <h2>Add User</h2>
-            <input type="text" class="form-control mt-3" name="name" placeholder="Name" requiered>
-            <input type="text" class="form-control mt-3" name="document" placeholder="Document" requiered>
-            <input type="text" class="form-control mt-3" name="email" placeholder="Email" requiered>
+            <label class="mt-3">Nombre</label>
+            <input type="text" class="form-control text-uppercase" name="name" required>
+            <input type="number" class="form-control mt-3" name="document" placeholder="Document" required>
+            <input type="text" class="form-control mt-3" name="email" placeholder="Email" required>
             <button class="btn btn-success mt-4">Add</button>
           </form>
         <?php endif ?>
 
+        <!-- editar usuarios -->
         <?php if ($_GET) : ?>
           <form method="GET" action="editUser.php">
-            <h2>Edit User <?php echo $result_unique['id'] ?></h2>
-            <input type="text" class="form-control mt-3 text-uppercase" name="name" value="<?php echo $result_unique['name'] ?>">
-            <input type="text" class="form-control mt-3" name="document" value="<?php echo $result_unique['document'] ?>">
-            <input type="text" class="form-control mt-3" name="email" value="<?php echo $result_unique['email'] ?>">
+            <h2>Edit User: <?php echo $nameU ?></h2>
+            <label class="mt-3">Name</label>
+            <input type="text" class="form-control text-uppercase" name="name" value="<?php echo $result_unique['name'] ?>" required>
+            <label class="mt-3">Document</label>
+            <input type="number" class="form-control" name="document" value="<?php echo $result_unique['document'] ?>" requiered>
+            <label class="mt-3">Email</label>
+            <input type="text" class="form-control" name="email" value="<?php echo $result_unique['email'] ?>" required>
+            <label class="mt-3">Debt: <?php echo $result_unique['debt'] ?> $</label> 
+            <br>
+            <label>Pay</label>
+            <input type="number" class="form-control" name="pay" placeholder="0.00 $">
             <input type="hidden" name="id" value="<?php echo $result_unique['id'] ?>">
-            <button class="btn btn-primary mt-4">Edit</button>
+            <button class="btn btn-success mt-4 float-left">Edit</button>
           </form>
+          <a href="adminUsers.php">
+            <button class="btn btn-danger mt-4 ml-3 float">Cancel</button>
+          </a>
         <?php endif ?>
       </div>
     </div>

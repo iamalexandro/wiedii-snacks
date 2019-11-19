@@ -24,7 +24,7 @@ $msg = 'Hello, ' . $name .
 '<br><br><br> Purchase History<br><br>';
 
 //compras SELECT FROM purchase
-$sql_purchase = 'SELECT * FROM purchase WHERE id_user=?3';
+$sql_purchase = 'SELECT * FROM purchase WHERE id_user=?';
 $sentence_purchase = $pdo->prepare($sql_purchase);
 $sentence_purchase->execute(array($id_user));
 $result_purchase = $sentence_purchase->fetchAll();
@@ -56,7 +56,7 @@ try {
   $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
   $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
   $mail->Username   = 'nicoladicandiajaimes@gmail.com';       // SMTP username
-  $mail->Password   = 'nicox2104';                            // SMTP password
+  $mail->Password   = '#';                            // SMTP password
   $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption
   $mail->Port       = 587;                                    // TCP port to connect to
 
