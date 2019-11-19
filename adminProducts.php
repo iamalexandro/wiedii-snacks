@@ -20,7 +20,7 @@ if (!empty($_POST['name']) && !empty($_POST['price']) && !empty($_POST['code']))
   header('location:adminProducts.php');
 } else {
   //Modal
-  //echo "<script language='javascript'> alert('Introduce todos los campos'); </script> "; 
+  echo "<script language='javascript'> alert('Introduce todos los campos'); </script> "; 
 }
 
 //EDIT DATA IN DB

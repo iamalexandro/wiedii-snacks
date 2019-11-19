@@ -56,20 +56,20 @@ $sentence_update->execute(array($debt, $id_user));
   <center>
     <div class='container'>
       <img src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/792/Tick_Mark_Dark-512.png" width="25%">
-      <h5 class="text-uppercase"> <b>Your purchase was processed successfully</b> </h5>
-      <h6>___________________________</h6>
-      <h5 class="text-uppercase mt-4">
+      <h6 class="text-uppercase"> <b>Your purchase was processed successfully</b> </h6>
+      <h6>_______________________</h6>
+      <h5 class="text-uppercase mt-3">
         <?php echo $result_user['name'] ?>
       </h5>
-      <h5 class="mt-4">
+      <h6 class="mt-4">
         You did buy: <b class="text-uppercase"><?php echo $result_product['name'] ?></b>
-      </h5>
-      <h5 class="mt-2">
+      </h6>
+      <h6 class="mt-2">
         It cost: <b class="text-uppercase"><?php echo $result_product['price'] ?> $</b>
-      </h5>
-      <h5 class="mt-2">
-        and your debt is for: <b class="text-uppercase"><?php echo $debt ?> $</b>
-      </h5>
+      </h6>
+      <h6 class="mt-2">
+        your debt is for: <b class="text-uppercase"><?php echo $debt ?> $</b>
+      </h6>
       <!-- Send email with debt -->
       <form action="GET">
         <a href="email.php?id_user=<?php echo $id_user ?>&id_product=<?php echo $id_product?>">

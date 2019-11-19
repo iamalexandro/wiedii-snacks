@@ -50,12 +50,12 @@ if ($_POST) {
       <h2 class="mt-2">
         WELCOME
       </h2>
-      <h4 class="mt-2 text-uppercase"><?php echo $result_confirm['name'] ?></h4>
-      <img class="mt-3 mb-4" src="https://image.flaticon.com/icons/svg/236/236831.svg" width="40%">
+      <h5 class="mt-2 text-uppercase"><?php echo $result_confirm['name'] ?></h5>
+      <img class="mt-2 mb-4" src="https://image.flaticon.com/icons/svg/236/236831.svg" width="35%">
 
       <form method="POST" action=purchase.php?id_user=<?php echo $id ?>>
         <i>What are you gonna buy ?</i>
-        <input type="text" class="form-control mt-3" name="code" placeholder="code product" />
+        <input type="text" class="form-control mt-2" name="code" placeholder="code product" id="focus"/>
         <button class="btn btn-success mt-4 inline-block float-right">SCAN</button>
       </form>
       <a href="login1view.php">
@@ -76,6 +76,8 @@ if ($_POST) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
     crossorigin="anonymous"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/functions.js"></script>
   </div>
 
 </body>

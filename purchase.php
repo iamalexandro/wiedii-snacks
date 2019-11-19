@@ -43,10 +43,10 @@ $id_user = $_GET['id_user'];
 
 <body>
   <div class="container">
-    <div class="col-md-6 mt-4">
+    <div class="col-md-6 mt-3">
       <center>
         <h4 class="text-uppercase"><?php echo $result_product['name'] ?></h4>
-        <img class="mt-4" src="https://image.flaticon.com/icons/svg/2224/2224197.svg" width="50%">
+        <img class="mt-3" src="https://image.flaticon.com/icons/svg/2224/2224197.svg" width="50%">
         <h5 class="text-uppercase mt-4">
           price: <?php echo $result_product['price'] ?> $
         </h5>
