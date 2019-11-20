@@ -1,6 +1,6 @@
 <?php
 include_once 'conection.php';
-
+date_default_timezone_set('America/Bogota');
 //reconocer usuario
 $id_user = $_GET['id_user'];
 $sql_user = 'SELECT * FROM users WHERE id=?';
@@ -16,10 +16,11 @@ $result_product = $sentence_product->fetch();
 
 //INSERT INTO purchase
 $cost = $result_product['price'];
+$actual_date = date("Y-m-d H:i:s");
 
-$sql_purchase = 'INSERT INTO purchase (id_user,id_product,cost) VALUES (?,?,?)';
+$sql_purchase = 'INSERT INTO purchase (id_user,id_product,cost,date1) VALUES (?,?,?,?)';
 $sentence_purchase = $pdo->prepare($sql_purchase);
-$sentence_purchase->execute(array($id_user, $id_product, $cost));
+$sentence_purchase->execute(array($id_user, $id_product, $cost, $actual_date));
 
 //UPDATE USER DEBT
 $debt = $result_user['debt'] + $result_product['price'];

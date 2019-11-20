@@ -14,8 +14,6 @@ if ($_POST) {
     die();
   }
 
-  // echo 'El id de la persona es: '.$result_confirm['id'];
-
 }
 ?>
 

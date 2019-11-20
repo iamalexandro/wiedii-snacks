@@ -42,7 +42,6 @@
         <input type="number" class="form-control " name="id" placeholder="id" id="focus">
         <button class="btn btn-success mt-3">ENTER</button>
       </form>
-
     </div>
   </center>
 

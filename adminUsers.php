@@ -100,8 +100,10 @@ if ($_GET) {
             <h2>Add User</h2>
             <label class="mt-3">Nombre</label>
             <input type="text" class="form-control text-uppercase" name="name" required>
-            <input type="number" class="form-control mt-3" name="document" placeholder="Document" required>
-            <input type="text" class="form-control mt-3" name="email" placeholder="Email" required>
+            <label class="mt-3">Document</label>
+            <input type="number" class="form-control" name="document" required>
+            <label class="mt-3">Email</label>
+            <input type="text" class="form-control" name="email" required>
             <button class="btn btn-success mt-4">Add</button>
           </form>
         <?php endif ?>
@@ -118,7 +120,7 @@ if ($_GET) {
             <input type="text" class="form-control" name="email" value="<?php echo $result_unique['email'] ?>" required>
             <label class="mt-3">Debt: <?php echo $result_unique['debt'] ?> $</label> 
             <br>
-            <label>Pay</label>
+            <label>Pay</label> 
             <input type="number" class="form-control" name="pay" placeholder="0.00 $">
             <input type="hidden" name="id" value="<?php echo $result_unique['id'] ?>">
             <button class="btn btn-success mt-4 float-left">Edit</button>

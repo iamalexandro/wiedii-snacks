@@ -54,6 +54,7 @@ $id_user = $_GET['id_user'];
       <a href="welcome.php">
         <img class="mt-3 d-inline-block ml-4" src="https://image.flaticon.com/icons/svg/1632/1632600.svg" width="20%">
       </a>
+      <!-- buy button  -->
       <a href="bill.php?id_user=<?php echo $id_user ?>&id_product=<?php echo $result_product['id'] ?>">
         <img class="mt-3 d-inline-block float-right mr-4" 
         src="https://image.flaticon.com/icons/svg/1632/1632596.svg" width="20%">

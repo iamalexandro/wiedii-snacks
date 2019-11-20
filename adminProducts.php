@@ -81,6 +81,8 @@ if ($_GET) {
             <?php echo $data['name']; ?>
             -
             <?php echo $data['price'] . ' $'; ?>
+            - code: 
+            <?php echo $data['code']; ?>
 
             <!-- edit button -->
             <a href="adminProducts.php?id=<?php echo $data['id']; ?>">
@@ -100,9 +102,12 @@ if ($_GET) {
         <?php if (!$_GET) : ?>
           <form method="POST">
             <h2>Add Products</h2>
-            <input type="text" class="form-control mt-3" name="name" placeholder="Name" required>
-            <input type="text" class="form-control mt-3" name="price" placeholder="Price" required>
-            <input type="text" class="form-control mt-3" name="code" placeholder="Code" required>
+            <label class="mt-3">Nombre</label>
+            <input type="text" class="form-control text-uppercase" name="name" required>
+            <label class="mt-3">Price</label>
+            <input type="text" class="form-control" name="price" required>
+            <label class="mt-3">Code</label>
+            <input type="text" class="form-control" name="code" required>
             <button class="btn btn-success mt-4">Add</button>
           </form>
         <?php endif ?>
@@ -110,10 +115,13 @@ if ($_GET) {
         <?php if ($_GET) : ?>
           <form method="GET" action="editProducts.php">
             <h2>Edit Product: <?php echo $nameP ?></h2>
-            <input type="text" class="form-control mt-3 text-uppercase" name="name" 
+            <label class="mt-3">Nombre</label>
+            <input type="text" class="form-control text-uppercase" name="name" 
             value="<?php echo $result_unique['name'] ?>" required>
-            <input type="text" class="form-control mt-3" name="price" value="<?php echo $result_unique['price'] ?>" required>
-            <input type="text" class="form-control mt-3" name="code" value="<?php echo $result_unique['code'] ?>" required>
+            <label class="mt-3">Price</label>
+            <input type="text" class="form-control" name="price" value="<?php echo $result_unique['price'] ?>" required>
+            <label class="mt-3">Code</label>
+            <input type="text" class="form-control" name="code" value="<?php echo $result_unique['code'] ?>" required>
             <input type="hidden" name="id" value="<?php echo $result_unique['id'] ?>">
             <button class="btn btn-success mt-4 float-left">Edit</button>
           </form>

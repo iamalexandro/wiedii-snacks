@@ -1,6 +1,6 @@
 <?php
 include_once 'conection.php';
-if (isset($_POST['submit'])) {
+if ($_POST) {
   $password = $_POST['password'];
 
   $sql_confirm = 'SELECT * FROM users WHERE password=?';
@@ -8,8 +8,10 @@ if (isset($_POST['submit'])) {
   $sentence_confirm->execute(array($password));
   $result_confirm = $sentence_confirm->fetch();
 
+  $error = 0;
   if (!$result_confirm) {
-    echo 'Invalid User';
+    echo '<h1>Invalid User <br><br></h1>';
+    echo '<a href=""><button>volver</button></a>';
     die();
   }
   header('location:adminUsers.php');
@@ -20,7 +22,9 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 
 <head>
+  
   <!-- bootstrap -->
+  <a href=""></a>
   <div class="bootstrap">
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -45,13 +49,13 @@ if (isset($_POST['submit'])) {
 
 <body>
   <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-12">
+    <div class="row" style="justify-content:center">
+      <div class="col-md-4">
         <center>
           <form method="POST">
             <h3 class="mt-5">Welcome to Wiedii Snacks</h3>
             <input type="password" class="form-control mt-5" name="password" placeholder="password" required autofocus />
-            <button type="submit" name="submit" class="btn btn-success mt-4">ENTER</button>
+            <button class="btn btn-success mt-4">ENTER</button>
           </form>
         </center>
       </div>
