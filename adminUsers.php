@@ -1,6 +1,12 @@
 <?php
-//READ DATA FROM DB
 include_once 'conection.php'; //cargo la conexion
+
+session_start();
+if(!isset($_SESSION['admin']) ){
+  header('Location:admin.php');
+}
+
+//READ DATA FROM DB
 $sql_reader = 'SELECT * FROM users'; //var con consulta sql
 $gsent = $pdo->prepare($sql_reader); //guardo la consulta en una var
 $gsent->execute(); //ejecuto la consulta
@@ -18,20 +24,20 @@ if ($_POST) {
   $sentence_add->execute(array($name, $document, $email));
 
   header('location:adminUsers.php');
-} else 
+} else
 
-//EDIT DATA IN DB
-if ($_GET) {
-  $id = $_GET['id'];
+  //EDIT DATA IN DB
+  if ($_GET) {
+    $id = $_GET['id'];
 
-  $sql_unique = 'SELECT * FROM users WHERE id=?';
-  $gsent_unique = $pdo->prepare($sql_unique);
-  $gsent_unique->execute(array($id));
-  $result_unique = $gsent_unique->fetch();
+    $sql_unique = 'SELECT * FROM users WHERE id=?';
+    $gsent_unique = $pdo->prepare($sql_unique);
+    $gsent_unique->execute(array($id));
+    $result_unique = $gsent_unique->fetch();
 
-  $nameU = $result_unique['name'];
-  $nameU = strtoupper($nameU);
-}
+    $nameU = $result_unique['name'];
+    $nameU = strtoupper($nameU);
+  }
 
 ?>
 <!doctype html>
@@ -50,24 +56,25 @@ if ($_GET) {
       <a class="navbar-brand">
         <img src="util/mainlogoW.svg" width="50%" height="50%" class="d-inline-block align-top" alt="">
       </a>
-      <a href="login2view.php">
-        <button type="button" class="btn btn-dark">Exit</button>
-      </a>
+      <u class="navbar">
+        <a href="adminProducts.php" class="navbar-brand">
+          <button class="btn btn-outline-secondary mr-2">Products</button>
+        </a>
+        <a href="logoutAdmin.php">
+          <button type="button" class="btn btn-outline-danger">Exit</button>
+        </a>
+      </u>
     </nav>
-  </div>
-  </div>
 
-  <title>Wiedii Snacks Users</title>
-  <link rel="shortcut icon" type="image/x-icon" href="util/favicon.png">
+    <title>Wiedii Snacks Users</title>
+    <link rel="shortcut icon" type="image/x-icon" href="util/favicon.png">
 
 </head>
 
 <body>
 
   <div class="container mt-4">
-    <a href="adminProducts.php">
-      <button type="button" class="btn btn-primary p-3">GO TO ADMIN PRODUCTS</button>
-    </a>
+    <h1 class="display-4">ADMIN USERS</h1>
     <div class="row">
       <div class="col-md-6 mt-4">
         <!--mostrar los registros de la DB -->
@@ -94,7 +101,7 @@ if ($_GET) {
 
       <div class="col-md-6 mt-4">
 
-          <!-- agregar usuarios -->
+        <!-- agregar usuarios -->
         <?php if (!$_GET) : ?>
           <form method="POST">
             <h2>Add User</h2>
@@ -118,9 +125,9 @@ if ($_GET) {
             <input type="number" class="form-control" name="document" value="<?php echo $result_unique['document'] ?>" requiered>
             <label class="mt-3">Email</label>
             <input type="text" class="form-control" name="email" value="<?php echo $result_unique['email'] ?>" required>
-            <label class="mt-3">Debt: <?php echo $result_unique['debt'] ?> $</label> 
+            <label class="mt-3">Debt: <?php echo $result_unique['debt'] ?> $</label>
             <br>
-            <label>Pay</label> 
+            <label>Pay</label>
             <input type="number" class="form-control" name="pay" placeholder="0.00 $">
             <input type="hidden" name="id" value="<?php echo $result_unique['id'] ?>">
             <button class="btn btn-success mt-4 float-left">Edit</button>

@@ -1,5 +1,10 @@
 <?php
 include_once 'conection.php';
+session_start();
+if (!isset($_SESSION['user'])) {
+  header('Location:shop.php');
+}
+
 date_default_timezone_set('America/Bogota');
 //reconocer usuario
 $id_user = $_GET['id_user'];

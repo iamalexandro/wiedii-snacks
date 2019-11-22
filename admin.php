@@ -1,5 +1,6 @@
 <?php
 include_once 'conection.php';
+session_start();
 if ($_POST) {
   $password = $_POST['password'];
 
@@ -8,13 +9,16 @@ if ($_POST) {
   $sentence_confirm->execute(array($password));
   $result_confirm = $sentence_confirm->fetch();
 
-  $error = 0;
   if (!$result_confirm) {
-    echo '<h1>Invalid User <br><br></h1>';
-    echo '<a href=""><button>volver</button></a>';
-    die();
+    echo "<script> alert('invalid user') </script>";
+  } else {
+    $login = $password;
+    $_SESSION['admin'] = $login;
+
+    if (isset($_SESSION['admin'])) {
+      header('location:adminUsers.php');
+    }
   }
-  header('location:adminUsers.php');
 }
 ?>
 
@@ -22,7 +26,7 @@ if ($_POST) {
 <html lang="en">
 
 <head>
-  
+
   <!-- bootstrap -->
   <a href=""></a>
   <div class="bootstrap">
@@ -35,11 +39,9 @@ if ($_POST) {
     <!-- navbar bootstrap-->
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand">
-        <img src="util/mainlogoW.svg" width="50%" height="50%" class="d-inline-block align-top" alt="" />
+        <img src="util/mainlogoW.svg" width="50%" height="50%" class="d-inline-block align-top" alt="">
       </a>
-      <a href="index.html">
-        <button type="button" class="btn btn-dark">Exit</button>
-      </a>
+      
     </nav>
   </div>
 
@@ -53,8 +55,9 @@ if ($_POST) {
       <div class="col-md-4">
         <center>
           <form method="POST">
-            <h3 class="mt-5">Welcome to Wiedii Snacks</h3>
-            <input type="password" class="form-control mt-5" name="password" placeholder="password" required autofocus />
+            <h1 class="mt-5"> <b>WIEDII SNACKS</b> </h1>
+            <h3 class="mt-3"> <b>ADMIN</b> </h3>
+            <input type="password" class="form-control mt-4" name="password" placeholder="password" required autofocus />
             <button class="btn btn-success mt-4">ENTER</button>
           </form>
         </center>

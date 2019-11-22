@@ -1,5 +1,9 @@
 <?php
 include_once 'conection.php';
+session_start();
+if (!isset($_SESSION['user'])) {
+  header('Location:shop.php');
+}
 
 $code = $_POST['code'];
 
@@ -9,17 +13,14 @@ $sentence_product->execute(array($code));
 $result_product = $sentence_product->fetch();
 
 if (!$result_product) {
-  echo 'Invalid product';
-  die();
+  header('Location:welcome.php');
 }
-
 $id_user = $_GET['id_user'];
 
 ?>
 
 <!doctype html>
 <html lang="en">
-
 <head>
 
   <div class="bootstrap adds">

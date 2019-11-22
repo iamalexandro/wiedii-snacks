@@ -1,3 +1,28 @@
+<?php 
+  include_once 'conection.php';
+  session_start();
+  
+  if ($_POST) {
+    $id = $_POST['id'];
+  
+    $sql_confirm = 'SELECT * FROM users WHERE id=?';
+    $sentence_confirm = $pdo->prepare($sql_confirm);
+    $sentence_confirm->execute(array($id));
+    $result_confirm = $sentence_confirm->fetch();
+  
+    if (!$result_confirm) {
+      echo "<script> alert('invalid user') </script>";
+    } else {
+      $login = $id;
+      $_SESSION['user'] = $login;
+  
+      if (isset($_SESSION['user'])) {
+        header('location:welcome.php?id_user='.$id);
+      }
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,10 +63,11 @@
 
     <div class="col-md-6 m4">
 
-      <form method="POST" action="welcome.php">
-        <input type="number" class="form-control " name="id" placeholder="id" id="focus">
+      <form method="POST">
+        <input type="number" class="form-control " name="id" placeholder="id" id="focus" required>
         <button class="btn btn-success mt-3">ENTER</button>
       </form>
+
     </div>
   </center>
 

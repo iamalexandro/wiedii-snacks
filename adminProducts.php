@@ -1,6 +1,12 @@
 <?php
 //READ DATA FROM DB
 include_once 'conection.php'; //cargo la conexion
+
+session_start();
+if(!isset($_SESSION['admin']) ){
+  header('Location:admin.php');
+}
+
 $sql_reader = 'SELECT * FROM products'; //var con consulta sql
 $gsent = $pdo->prepare($sql_reader); //guardo la consulta en una var
 $gsent->execute(); //ejecuto la consulta
@@ -52,9 +58,14 @@ if ($_GET) {
       <a class="navbar-brand">
         <img src="util/mainlogoW.svg" width="50%" height="50%" class="d-inline-block align-top" alt="">
       </a>
-      <a href="login2view.php">
-        <button type="button" class="btn btn-dark">Exit</button>
-      </a>
+      <u class="navbar">
+        <a href="adminUsers.php" class="navbar-brand">
+          <button class="btn btn-outline-secondary mr-2">Admin Users</button>
+        </a>
+        <a href="logoutAdmin.php">
+          <button type="button" class="btn btn-outline-danger">Exit</button>
+        </a>
+      </u>
     </nav>
   </div>
 
@@ -65,11 +76,8 @@ if ($_GET) {
 
 <body>
 
-
   <div class="container mt-4">
-    <a href="adminUsers.php">
-      <button type="button" class="btn btn-primary p-3">GO TO ADMIN USERS</button>
-    </a>
+  <h1 class="display-4">ADMIN PRODUCTS</h1>
     <div class="row">
       <div class="col-md-6 mt-4">
         <!--mostrar los registros de la DB -->
