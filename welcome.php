@@ -4,22 +4,19 @@ session_start();
 if (!isset($_SESSION['user'])) {
   header('Location:shop.php');
 }
+date_default_timezone_set('America/Bogota');
 //reconocer id del usuario
 $id_user = $_GET['id_user'];
 $sql_confirm = 'SELECT * FROM users WHERE id=?';
 $sentence_confirm = $pdo->prepare($sql_confirm);
 $sentence_confirm->execute(array($id_user));
 $result_confirm = $sentence_confirm->fetch();
-
 $name = $result_confirm['name'];
+$debt = $result_confirm['debt'];
 
-//reconocr producto
-$arr_products=[];
-// var_dump($arr_products);
-
-$i=0;
-
-if($_POST){
+$bill;
+//cart
+if ($_POST) {
   $code = $_POST['code'];
 
   $sql_product = 'SELECT * FROM products WHERE code=?';
@@ -29,17 +26,41 @@ if($_POST){
 
   $nameProduct = $result_product['name'];
   $priceProduct = $result_product['price'];
+  $id_product = $result_product['id'];
 
-  if($result_product){
-    array_push($arr_products,$nameProduct,$priceProduct);
+  //insert cart
+  $sql_cart = 'INSERT INTO cart (name,price,id_product,code,id_user) VALUES (?,?,?,?,?)';
+  $sentence_cart = $pdo->prepare($sql_cart);
+  $sentence_cart->execute(array($nameProduct, $priceProduct, $id_product, $code, $id_user));
+
+  //show cart
+  $sql_cart2 = 'SELECT * FROM cart';
+  $sentence_cart2 = $pdo->prepare($sql_cart2);
+  $sentence_cart2->execute();
+  $result_cart = $sentence_cart2->fetchAll();
+
+  //live cost
+  foreach ($result_cart as $items) {
+    $bill += $items['price'];
   }
 }
-var_dump($arr_products);
+
+if ($_GET) {
+  $id_button = $_GET['id_button'];
+  if ($id_button == 'back') {
+    //clean cart and exit
+    $sql_cart = 'DELETE FROM cart WHERE id_user=?';
+    $sentence_cart = $pdo->prepare($sql_cart);
+    $sentence_cart->execute(array($id_user));
+    header('location:logoutShop.php');
+  }
+}
 
 ?>
 
 <!doctype html>
 <html lang="en">
+
 <head>
   <div class="bootstrap adds">
     <!-- Required meta tags -->
@@ -58,23 +79,47 @@ var_dump($arr_products);
   </div>
   <title>Wiedii Snacks Welcome</title>
 </head>
+
 <body>
   <div class="container">
     <center>
-      <h6 class="text-uppercase mt-2"><b><?php echo $name ?></b> </h6>
+      <h6 class="text-uppercase mt-2"><b><?php echo $name ?></b> <b style="color:red;"> <?php echo $debt ?> $ </b></h6>
       <i>What are you gonna buy ?</i>
       <!-- Formulario -->
+      <div class="container">
         <form method="POST">
-          <input type="text" class="form-control mt-2 inline-block float-left" name="code" placeholder="code product" id="focus">
-          <button class="btn btn-info mt-4 inline-block float-left ml-2">ADD</button>
+          <input type="text" class="form-control mt-3 iniline-block float-left" name="code" placeholder="code product" id="focus" style="width:130px" required>
+          <button class="btn btn-info inline-block float-right mt-3 ml-2">ADD</button>
         </form>
+      </div>
+      <!-- list of products -->
+      <?php $msg ?>
+
+      <?php $i = 1 ?>
+      <?php foreach ($result_cart as $data) : ?>
+        <?php $name = $data['name'] ?>
+        <?php $name = strtoupper($name) ?>
+        <?php $price = $data['price'] ?>
+        <?php $msg .= $i . '. ' . $name . ' - ' . $price . ' $ ' . $line ?>
+        <?php $i++ ?>
+      <?php endforeach ?>
+
+      <textarea class="mt-3" rows="6" cols="25"> <?php echo $msg ?> </textarea>
+      <!-- <div class="panel panel-default">
+        <div class="panel-body">A Basic Panel</div>
+      </div> -->
+
 
       <!-- confirmar compra -->
-      <!-- <form action="GET" action=purchase.php?id_user=<?php echo $id_user?>>
-        <button class="btn btn-success mt-4 inline-block float-right">BUY</button>
-      </form> -->
+      <form method="GET" action="welcome.php">
+        <a href="bill2.php?id_user=<?php echo $id_user ?>" class="btn btn-success mt-2 inline-block float-right" id="buy">BUY</a>
+      </form>
+      <h6 class="inline-block float-right mr-2 mt-3" style="color:green"> <?php echo $bill ?> $</h6>
       <!-- salir -->
-      
+      <form action="GET" action="welcome.php">
+        <a href="welcome.php?id_user=<?php echo $id_user ?>&id_button=back" class="btn btn-danger mt-2 inline-block float-left">BACK</a>
+      </form>
+
     </center>
 
     <div class=adds-javascript>
