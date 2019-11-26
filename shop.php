@@ -1,26 +1,26 @@
-<?php 
-  include_once 'conection.php';
-  session_start();
-  
-  if ($_POST) {
-    $id = $_POST['id'];
-  
-    $sql_confirm = 'SELECT * FROM users WHERE id=?';
-    $sentence_confirm = $pdo->prepare($sql_confirm);
-    $sentence_confirm->execute(array($id));
-    $result_confirm = $sentence_confirm->fetch();
-  
-    if (!$result_confirm) {
-      echo "<script> alert('invalid user') </script>";
-    } else {
-      $login = $id;
-      $_SESSION['user'] = $login;
-  
-      if (isset($_SESSION['user'])) {
-        header('location:welcome.php?id_user='.$id);
-      }
+<?php
+include_once 'conection.php';
+session_start();
+
+if ($_POST) {
+  $id = $_POST['id'];
+
+  $sql_confirm = 'SELECT * FROM users WHERE id=?';
+  $sentence_confirm = $pdo->prepare($sql_confirm);
+  $sentence_confirm->execute(array($id));
+  $result_confirm = $sentence_confirm->fetch();
+
+  if (!$result_confirm) {
+    echo "<script> alert('invalid user') </script>";
+  } else {
+    $login = $id;
+    $_SESSION['user'] = $login;
+
+    if (isset($_SESSION['user'])) {
+      header('location:welcome.php?id_user=' . $id);
     }
   }
+}
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +50,7 @@
     <div>
       <h2 class="titulo mt-3"> <b>SNACKS</b></h2>
       <h2 class="titulo"><b>STORE</b></h2>
-      <img class="userimg" src="util/user.png" width="50%"/>
+      <img class="userimg" src="util/user.png" width="50%" />
       <!-- imagen huella -->
       <!-- <img class="finger" src="https://image.flaticon.com/icons/png/512/125/125503.png" 
         width="15%" height="15%"/> -->
@@ -64,8 +64,14 @@
         <input type="number" class="form-control " name="id" placeholder="id" id="focus" required>
         <button class="btn btn-success mt-3 inline-block float-right">ENTER</button>
       </form>
-      <button class="btn btn-danger mt-3 inline-block float-left">:( </button>
+      <a href="return.php">
+        <img src="util/return.png" width="18%" class="mt-3 inline-block float-left">
+      </a>
     </div>
   </center>
+
+  <script src="js/jquery.js"></script>
+  <script src="js/functions.js"></script>
 </body>
+
 </html>

@@ -66,10 +66,8 @@ if ($_GET) {
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-
     <!-- navbar bootstrap -->
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand">
@@ -83,7 +81,7 @@ if ($_GET) {
 <body>
   <div class="container">
     <center>
-      <h6 class="text-uppercase mt-2"><b><?php echo $name ?></b> <b style="color:red;"> <?php echo $debt ?> $ </b></h6>
+      <h6 class="text-uppercase mt-2"><b><?php echo $name ?></b><b style="color:red;"><?php echo $debt ?> $ </b></h6>
       <i>What are you gonna buy ?</i>
       <!-- Formulario -->
       <div class="container">
@@ -112,14 +110,19 @@ if ($_GET) {
 
       <!-- confirmar compra -->
       <form method="GET" action="welcome.php">
-        <a href="bill2.php?id_user=<?php echo $id_user ?>" class="btn btn-success mt-2 inline-block float-right" id="buy">BUY</a>
+        <a href="bill.php?id_user=<?php echo $id_user ?>" class="btn btn-success mt-2 inline-block float-right"
+        id="buy">BUY</a>
       </form>
       <h6 class="inline-block float-right mr-2 mt-3" style="color:green"> <?php echo $bill ?> $</h6>
       <!-- salir -->
       <form action="GET" action="welcome.php">
-        <a href="welcome.php?id_user=<?php echo $id_user ?>&id_button=back" class="btn btn-danger mt-2 inline-block float-left">BACK</a>
+        <a href="welcome.php?id_user=<?php echo $id_user ?>&id_button=back" class="btn btn-danger mt-2 
+        inline-block float-left">BACK</a>
       </form>
     </center>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/functions.js"></script>
 
 </body>
 
