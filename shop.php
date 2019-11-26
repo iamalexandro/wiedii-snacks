@@ -64,9 +64,7 @@ if ($_POST) {
         <input type="number" class="form-control " name="id" placeholder="id" id="focus" required>
         <button class="btn btn-success mt-3 inline-block float-right">ENTER</button>
       </form>
-      <a href="return.php">
-        <img src="util/return.png" width="18%" class="mt-3 inline-block float-left">
-      </a>
+      <a href="returns.php?id_user=<?php echo $id_user ?>&id_button=back" class="btn btn-danger mt-3 inline-block float-left">:(</a>
     </div>
   </center>
 
