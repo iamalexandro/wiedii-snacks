@@ -13,6 +13,7 @@ $sentence_user->execute(array($id_user));
 $result_user = $sentence_user->fetch();
 $name = $result_user['name'];
 $name = strtoupper($name);
+$email = $result_user['email'];
 //reconocer cart
 
 $sql_cart = 'SELECT * FROM cart';
@@ -66,17 +67,14 @@ try {
   $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
   $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
   $mail->Username   = 'nicoladicandiajaimes@gmail.com';       // SMTP username
-<<<<<<< HEAD
-  $mail->Password   = '#';                            // SMTP password
-=======
-  $mail->Password   = '*';                            // SMTP password
->>>>>>> 589a32d2165eddcd171f83c5dd99eafbe6c45e89
+  $mail->Password   = 'nicox2104';                            // SMTP password
+
   $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption
   $mail->Port       = 587;                                    // TCP port to connect to
 
   //Recipients
   $mail->setFrom('nicoladicandiajaimes@gmail.com', 'Wiedii Snacks');
-  $mail->addAddress('nicola.dicandia@wiedii.co', $name);    // Add a recipient
+  $mail->addAddress($email, $name);    // Add a recipient
 
   // Content
   $mail->isHTML(true);                                  // Set email format to HTML
