@@ -16,9 +16,13 @@ $debt = $result_confirm['debt'];
 
 $active = false;
 $bill = 0;
-//agregar item
+//agregar item, SI YA HAY UN ELEMENTO E N EL CARRITO +1 amount
 if ($_POST) {
   $code = $_POST['code'];
+  //verifico si el producto ya esta en el carrito
+
+
+  
   //consulto la tabla producto
   $sql_product = 'SELECT * FROM products WHERE code=?';
   $sentence_product = $pdo->prepare($sql_product);
