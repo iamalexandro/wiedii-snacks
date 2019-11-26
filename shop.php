@@ -43,7 +43,6 @@
     </nav>
   </div>
   <title>Wiedii Snacks Login</title>
-
 </head>
 
 <body>
@@ -57,18 +56,16 @@
         width="15%" height="15%"/> -->
     </div>
   </center>
-
   <!-- inicio de sesion -->
   <center>
-
     <div class="col-md-6 m4">
 
       <form method="POST">
         <input type="number" class="form-control " name="id" placeholder="id" id="focus" required>
-        <button class="btn btn-success mt-3">ENTER</button>
+        <button class="btn btn-success mt-3 inline-block float-right">ENTER</button>
       </form>
+      <button class="btn btn-danger mt-3 inline-block float-left">:( </button>
     </div>
   </center>
 </body>
-
 </html>
