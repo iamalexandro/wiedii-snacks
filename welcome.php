@@ -52,7 +52,7 @@ if ($active == false) {
   $sentence_cart2->execute();
   $result_cart = $sentence_cart2->fetchAll();
   foreach ($result_cart as $items) {
-     $bill += $items['price'];
+    $bill += $items['price'];
   }
 }
 
@@ -127,7 +127,7 @@ if ($_GET) {
       $sentence_item = $pdo->prepare($sql_item);
       $sentence_item->execute(array($id_item));
       $result_item = $sentence_item->fetch();
-      $newAmount = $result_item ['amount'];
+      $newAmount = $result_item['amount'];
 
       //consultar el precio unitario del item en products
       $sql_product = 'SELECT * FROM products WHERE id=?';
@@ -189,14 +189,21 @@ if ($_GET) {
       <div style="height:200px;width:235px;overflow:auto;border:1px solid white;padding:2%;text-align:left">
         <?php $count = 1 ?>
         <?php foreach ($result_cart as $data) : ?>
-          <?php $name = $data['name']; ?>
-          <?php $name = strtoupper($name) ?>
-          <?php $id_item = $data['id'] ?>
-          <?php $amount = $data['amount'] ?>
+          <?php
+            $name = $data['name'];
+            $name = strtoupper($name);
+            $id_item = $data['id'];
+            $id_product = $data['id_product'];
+            $amount = $data['amount'];
+            $sql_product = 'SELECT * FROM products WHERE id=?';
+            $sentence_product = $pdo->prepare($sql_product);
+            $sentence_product->execute(array($id_product));
+            $result_product = $sentence_product->fetch();
+            ?>
           <div class="alert alert-secondary" style="margin-bottom:5px; height:40px; text-align:left; padding:6px;padding-top:6px;">
             <div class="contenido" style="padding-bottom:0%">
               <small><?php echo $amount ?> <b><?php echo $name; ?> :</b></small>
-              <small><?php echo $data['price']; ?> $</small>
+              <small><?php echo $result_product['price']; ?> $</small>
 
               <!-- PLUS ITEM -->
               <a href="welcome.php?id_user=<?php echo $id_user ?>&id_item=<?php echo $id_item ?>&id_button=plus">
