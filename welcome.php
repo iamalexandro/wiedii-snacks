@@ -88,7 +88,7 @@ if ($active == false) {
   $sentence_cart2->execute();
   $result_cart = $sentence_cart2->fetchAll();
   foreach ($result_cart as $items) {
-    $bill += $items['price'];
+  $bill += $items['price'];
   }
 }
 // reconocer botones

@@ -1,6 +1,7 @@
 <?php
 include_once 'conection.php';
 session_start();
+
 if ($_POST) {
   $id = $_POST['id'];
 
@@ -16,7 +17,7 @@ if ($_POST) {
     $_SESSION['user'] = $login;
 
     if (isset($_SESSION['user'])) {
-      header('location:welcome.php?id_user=' . $id);
+      header('location:returns.php?id_user=' . $id);
     }
   }
 }
@@ -48,8 +49,7 @@ if ($_POST) {
 <body>
   <center>
     <div>
-      <h2 class="titulo mt-3"> <b>SNACKS</b></h2>
-      <h2 class="titulo"><b>STORE</b></h2>
+      <h1 class="titulo mt-4" style="color:red;"><b>RETURNS</b></h1>
       <img class="userimg" src="util/user.png" width="50%" />
       <!-- imagen huella -->
       <!-- <img class="finger" src="https://image.flaticon.com/icons/png/512/125/125503.png" 
@@ -61,11 +61,11 @@ if ($_POST) {
     <div class="col-md-6 m4">
 
       <form method="POST">
-        <input type="number" class="form-control " name="id" placeholder="id" id="focus" required>
-        <button class="btn btn-success mt-3 inline-block float-right" id="enter">ENTER</button>
+        <input type="number" class="form-control mt-3" name="id" placeholder="id" id="focus" required>
+        <button class="btn btn-success mt-4 inline-block float-right" id="enter">ENTER</button>
       </form>
-      <a href="returnsLogin.php">
-        <button class="btn btn-danger mt-3 inline-block float-left" id="enter">RETURN</button>
+      <a href="shop.php">
+        <button class="btn btn-danger mt-4 inline-block float-left" id="enter">BACK</button>
       </a>
     </div>
   </center>

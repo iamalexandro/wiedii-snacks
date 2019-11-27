@@ -61,6 +61,9 @@ if ($_GET) {
         <a href="adminUsers.php" class="navbar-brand">
           <button class="btn btn-outline-secondary mr-2">Admin Users</button>
         </a>
+        <a href="adminReturns.php" class="navbar-brand">
+          <button class="btn btn-outline-secondary mr-2">Admin Returns</button>
+        </a>
         <a href="logoutAdmin.php">
           <button type="button" class="btn btn-outline-danger">Exit</button>
         </a>
@@ -82,7 +85,7 @@ if ($_GET) {
         <!--mostrar los registros de la DB -->
         <h2>Products</h2>
         <?php foreach ($result as $data) : ?>
-          <div class="alert alert-dark text-uppercase mt-3" role="alert">
+          <div class="alert alert-secondary text-uppercase mt-3" role="alert">
             <?php echo $data['id']; ?>
             .
             <?php echo $data['name']; ?>

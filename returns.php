@@ -1,3 +1,82 @@
+<?php
+include_once 'conection.php';
+session_start();
+if (!isset($_SESSION['user'])) {
+  header('Location:shop.php');
+}
+date_default_timezone_set('America/Bogota');
+//reconocer id del usuario
+$id_user = $_GET['id_user'];
+$sql_confirm = 'SELECT * FROM users WHERE id=?';
+$sentence_confirm = $pdo->prepare($sql_confirm);
+$sentence_confirm->execute(array($id_user));
+$result_confirm = $sentence_confirm->fetch();
+$name = $result_confirm['name'];
+$debt = $result_confirm['debt'];
+//si tengo objetos en el carrito listarlos
+$active = false;
+$bill = 0;
+// ADD PRODUCTS
+if ($_POST) {
+  $code = $_POST['code'];
+  $sql_product = 'SELECT * FROM products WHERE code=?';
+  $sentence_product = $pdo->prepare($sql_product);
+  $sentence_product->execute(array($code));
+  $result_product = $sentence_product->fetch();
+
+  $nameProduct = $result_product['name'];
+  $priceProduct = $result_product['price'];
+  $id_product = $result_product['id'];
+
+  //insert cart
+  $sql_cart = 'INSERT INTO cart (name,price,id_product,code,id_user) VALUES (?,?,?,?,?)';
+  $sentence_cart = $pdo->prepare($sql_cart);
+  $sentence_cart->execute(array($nameProduct, $priceProduct, $id_product, $code, $id_user));
+  //show cart start
+  $sql_cart2 = 'SELECT * FROM cart';
+  $sentence_cart2 = $pdo->prepare($sql_cart2);
+  $sentence_cart2->execute();
+  $result_cart = $sentence_cart2->fetchAll();
+  //live bill
+  foreach ($result_cart as $items) {
+    $bill += $items['price'];
+  }
+  $active = true;
+}
+//mostrar la vista
+if ($active == false) {
+  // show cart at start
+  $sql_cart2 = 'SELECT * FROM cart';
+  $sentence_cart2 = $pdo->prepare($sql_cart2);
+  $sentence_cart2->execute();
+  $result_cart = $sentence_cart2->fetchAll();
+  foreach ($result_cart as $items) {
+    $bill += $items['price'];
+  }
+}
+//BUTTONS
+if ($_GET) {
+  $id_button = $_GET['id_button'];
+  //BACK BUTTON
+  if ($id_button == 'back') {
+    //clean cart and exit
+    $sql_cart = 'DELETE FROM cart WHERE id_user=?';
+    $sentence_cart = $pdo->prepare($sql_cart);
+    $sentence_cart->execute(array($id_user));
+    header('location:shop.php');
+  }
+  //CONFIRM RETURN BUTTON
+  // if ($id_button == 'buy') {
+  //   if (!$result_cart) {
+  //     header('location:welcome.php?id_user=' . $id_user);
+  //   } else {
+  //     header('location:bill.php?id_user=' . $id_user);
+  //   }
+  // }
+  //END RETURN BUTTON
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,10 +98,75 @@
   </div>
   <title>Wiedii Snacks Return</title>
 </head>
+
 <body>
   <center>
-    <h3 class="titulo mt-3"><b>RETURNS</b></h3>
+    <!-- <h4 class="titulo mt-1"><b>RETURNS</b></h4> -->
+    <h6 class="text-uppercase mt-2"><b><?php echo $name ?></b> <b style="color:red;"><?php echo $debt ?> $ </b></h6>
+    <div class="container">
+      <!-- ADD LIST PRODUCTS -->
+      <div class="container">
+        <form method="POST">
+          <input type="text" class="form-control iniline-block float-left mb-2" name="code" placeholder="code product" id="focus" style="width:130px" required>
+          <button class="btn btn-danger inline-block float-right ml-2 mb-2">ADD</button>
+        </form>
+      </div>
+
+      <!-- BOX OF PRODUCTS -->
+      <div style="height:200px;width:235px;overflow:auto;border:1px solid white;padding:2%;text-align:left">
+        <?php $count = 1 ?>
+        <?php foreach ($result_cart as $data) : ?>
+          <?php
+            $name = $data['name'];
+            $name = strtoupper($name);
+            $id_item = $data['id'];
+            $id_product = $data['id_product'];
+            $amount = $data['amount'];
+            $sql_product = 'SELECT * FROM products WHERE id=?';
+            $sentence_product = $pdo->prepare($sql_product);
+            $sentence_product->execute(array($id_product));
+            $result_product = $sentence_product->fetch();
+            ?>
+          <div class="alert alert-danger" style="margin-bottom:5px; height:40px; text-align:left;
+           padding:6px;padding-top:6px;">
+            <div class="contenido" style="padding-bottom:0%">
+              <small><?php echo $amount ?> <b><?php echo $name; ?> :</b></small>
+              <small><?php echo $result_product['price']; ?> $</small>
+              <!-- BUTTONS -->
+              <!-- <input type="checkbox" aria-label="Checkbox for following text input"> -->
+              <!-- LESS ITEM -->
+              <!-- <a href="returns.php?id_user=<?php echo $id_user ?>&id_item=<?php echo $id_item ?>&id_button=less">
+                <button class="btn-danger float-right p-0" style="height:27px; width:25px;">
+                  <h4>-</h4>
+                </button>
+              </a> -->
+            </div>
+          </div>
+          <?php $i++ ?>
+        <?php endforeach ?>
+      </div>
+      <!-- end box -->
+
+      <!-- buttons -->
+      <!-- EXIT BUTTON -->
+      <form action="GET" method="returns.php">
+        <a href="returns.php?id_user=<?php echo $id_user ?>&id_button=back" class="btn btn-danger mt-2 
+        inline-block float-left">BACK</a>
+      </form>
+
+      <!-- RETURN BUTTON  -->
+      <form method="GET">
+        <a href="#" class="btn btn-success mt-2 
+        inline-block float-right">RETURN</a>
+      </form>
+
+    </div>
+
   </center>
+
+
+  <script src="js/jquery.js"></script>
+  <script src="js/functions.js"></script>
 </body>
 
 </html>

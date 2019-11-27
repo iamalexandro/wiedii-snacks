@@ -58,7 +58,10 @@ if ($_POST) {
       </a>
       <u class="navbar">
         <a href="adminProducts.php" class="navbar-brand">
-          <button class="btn btn-outline-secondary mr-2">Products</button>
+          <button class="btn btn-outline-secondary mr-2">Admin Products</button>
+        </a>
+        <a href="adminReturns.php" class="navbar-brand">
+          <button class="btn btn-outline-secondary mr-2">Admin Returns</button>
         </a>
         <a href="logoutAdmin.php">
           <button type="button" class="btn btn-outline-danger">Exit</button>
@@ -80,7 +83,7 @@ if ($_POST) {
         <!--mostrar los registros de la DB -->
         <h2>Users</h2>
         <?php foreach ($result as $data) : ?>
-          <div class="alert alert-dark text-uppercase mt-3" role="alert">
+          <div class="alert alert-secondary text-uppercase mt-3" role="alert">
             <?php echo $data['id']; ?>
             .
             <?php echo $data['name']; ?>
