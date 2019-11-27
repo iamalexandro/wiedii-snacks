@@ -14,15 +14,46 @@ $result_confirm = $sentence_confirm->fetch();
 $name = $result_confirm['name'];
 $debt = $result_confirm['debt'];
 
+//si tengo objetos en el carrito listarlos
 $active = false;
 $bill = 0;
 //agregar item, SI YA HAY UN ELEMENTO E N EL CARRITO +1 amount
 if ($_POST) {
   $code = $_POST['code'];
-  //verifico si el producto ya esta en el carrito
+  //verifico si existe el producto en el carrito
+  $sql_cartE = 'SELECT * FROM cart WHERE code=?';
+  $sentence_cartE = $pdo->prepare($sql_cartE);
+  $sentence_cartE->execute(array($code));
+  $result_cartE = $sentence_cartE->fetch();
+  $id_item = $result_cartE['id'];
 
+  if($result_cartE){
+    //Existe un item en el carrito, amount +1
+    $sql_item = 'UPDATE cart set amount=amount+1 WHERE id=?';
+    $sentence_item = $pdo->prepare($sql_item);
+    $sentence_item->execute(array($id_item));
+    //consultar el item en el carrito
+    $sql_item = 'SELECT * FROM cart WHERE id=?';
+    $sentence_item = $pdo->prepare($sql_item);
+    $sentence_item->execute(array($id_item));
+    $result_item = $sentence_item->fetch();
+    //reconozco el id del producto y la cantidad
+    $id_product = $result_item['id_product'];
+    $amount = $result_item['amount'];
+    //consultar el precio unitario del item en products
+    $sql_product = 'SELECT * FROM products WHERE id=?';
+    $sentence_product = $pdo->prepare($sql_product);
+    $sentence_product->execute(array($id_product));
+    $result_product = $sentence_product->fetch();
 
-  
+    $price = $result_product['price'];
+    $newPrice = $price * $amount;
+    // actualizar price
+    $sql_itemU = 'UPDATE cart set price=? WHERE id=?';
+    $sentence_itemU = $pdo->prepare($sql_itemU);
+    $sentence_itemU->execute(array($newPrice, $id_item));
+    
+  }else{
   //consulto la tabla producto
   $sql_product = 'SELECT * FROM products WHERE code=?';
   $sentence_product = $pdo->prepare($sql_product);
@@ -47,8 +78,9 @@ if ($_POST) {
     $bill += $items['price'];
   }
   $active = true;
+  }
 }
-
+//mostrar la vista
 if ($active == false) {
   // show cart at start
   $sql_cart2 = 'SELECT * FROM cart';
@@ -59,7 +91,6 @@ if ($active == false) {
     $bill += $items['price'];
   }
 }
-
 // reconocer botones
 if ($_GET) {
   $id_button = $_GET['id_button'];
@@ -183,7 +214,8 @@ if ($_GET) {
       <!-- Formulario -->
       <div class="container">
         <form method="POST">
-          <input type="text" class="form-control mt-2 iniline-block float-left mb-2" name="code" placeholder="code product" id="focus" style="width:130px" required>
+          <input type="text" class="form-control mt-2 iniline-block float-left mb-2" name="code"
+           placeholder="code product" id="focus" style="width:130px" required>
           <button class="btn btn-info inline-block float-right mt-2 ml-2 mb-2">ADD</button>
         </form>
       </div>
@@ -204,7 +236,8 @@ if ($_GET) {
             $sentence_product->execute(array($id_product));
             $result_product = $sentence_product->fetch();
             ?>
-          <div class="alert alert-secondary" style="margin-bottom:5px; height:40px; text-align:left; padding:6px;padding-top:6px;">
+          <div class="alert alert-secondary" style="margin-bottom:5px; height:40px; text-align:left;
+           padding:6px;padding-top:6px;">
             <div class="contenido" style="padding-bottom:0%">
               <small><?php echo $amount ?> <b><?php echo $name; ?> :</b></small>
               <small><?php echo $result_product['price']; ?> $</small>
@@ -229,12 +262,14 @@ if ($_GET) {
 
       <!-- BUY BUTTON -->
       <form method="GET" action="welcome.php">
-        <a href="welcome.php?id_user=<?php echo $id_user ?>&id_button=buy" class="btn btn-success mt-2 inline-block float-right">BUY</a>
+        <a href="welcome.php?id_user=<?php echo $id_user ?>&id_button=buy" class="btn btn-success mt-2 
+        inline-block float-right">BUY</a>
       </form>
       <h6 class="inline-block float-right mr-2 mt-3" style="color:green"> <?php echo $bill ?> $</h6>
       <!-- EXIT BUTTON -->
       <form action="GET" action="welcome.php">
-        <a href="welcome.php?id_user=<?php echo $id_user ?>&id_button=back" class="btn btn-danger mt-2 inline-block float-left">BACK</a>
+        <a href="welcome.php?id_user=<?php echo $id_user ?>&id_button=back" class="btn btn-danger mt-2 
+        inline-block float-left">BACK</a>
       </form>
     </center>
 

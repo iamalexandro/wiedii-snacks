@@ -32,14 +32,13 @@ foreach ($result_cart as $items) {
   $result_product = $sentence_product->fetch();
   $price = $result_product['price'];
   $amount = $items['amount'];
-  $name = $items['name'];
-  $name = strtoupper($name);
+  $nameItem = $items['name'];
+  $nameItem = strtoupper($nameItem);
 
-  $item .= $amount.' '.$name." / ".$price.' $'. ' = ' .($price*$amount).' $<br>';
+  $item .= $amount.' '.$nameItem." / ".$price.' $'. ' = ' .($price*$amount).' $<br>';
   $cost += $items['price'];
   $i++;
 }
-
 
 $msg = 'Hello, ' . $name .
   '<br> You just bought these items<br><br>' . $item .
@@ -66,42 +65,42 @@ foreach ($result_purchase as $data) {
   $i = $i + 1;
 }
 
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
-// require 'PHPMailer/Exception.php';
-// require 'PHPMailer/PHPMailer.php';
-// require 'PHPMailer/SMTP.php';
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
 
-// $mail = new PHPMailer(true);
-// try {
-//   //Server settings
-//   $mail->SMTPDebug = 0;                                       // Enable verbose debug output
-//   $mail->isSMTP();                                            // Send using SMTP
-//   $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
-//   $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-//   $mail->Username   = 'nicoladicandiajaimes@gmail.com';       // SMTP username
-//   $mail->Password   = 'nicola210498';                            // SMTP password
+$mail = new PHPMailer(true);
+try {
+  //Server settings
+  $mail->SMTPDebug = 0;                                       // Enable verbose debug output
+  $mail->isSMTP();                                            // Send using SMTP
+  $mail->Host       = 'smtp.gmail.com';                       // Set the SMTP server to send through
+  $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+  $mail->Username   = 'nicoladicandiajaimes@gmail.com';       // SMTP username
+  $mail->Password   = 'nicola210498';                            // SMTP password
 
-//   $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption
-//   $mail->Port       = 587;                                    // TCP port to connect to
+  $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption
+  $mail->Port       = 587;                                    // TCP port to connect to
 
-//   //Recipients
-//   $mail->setFrom('nicoladicandiajaimes@gmail.com', 'Wiedii Snacks');
-//   $mail->addAddress($email, $name);    // Add a recipient
+  //Recipients
+  $mail->setFrom('nicoladicandiajaimes@gmail.com', 'Wiedii Snacks');
+  $mail->addAddress($email, $name);    // Add a recipient
 
-//   // Content
-//   $mail->isHTML(true);                                  // Set email format to HTML
-//   $mail->Subject = 'Purchase Notification';
-//   $mail->Body    = $msg;
+  // Content
+  $mail->isHTML(true);                                  // Set email format to HTML
+  $mail->Subject = 'Purchase Notification';
+  $mail->Body    = $msg;
 
-//   $mail->send();
-// } catch (Exception $e) {
-//   echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-// }
+  $mail->send();
+} catch (Exception $e) {
+  echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+}
 
-// clean cart and exit
-// $sql_cart = 'DELETE FROM cart WHERE id_user=?';
-// $sentence_cart = $pdo->prepare($sql_cart);
-// $sentence_cart->execute(array($id_user));
-// header('location:logoutShop.php');
+//clean cart and exit
+$sql_cart = 'DELETE FROM cart WHERE id_user=?';
+$sentence_cart = $pdo->prepare($sql_cart);
+$sentence_cart->execute(array($id_user));
+header('location:logoutShop.php');
